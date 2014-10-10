@@ -13,6 +13,6 @@
         "zendframework/zendframework": "2.*@stable"                
     },
     "autoload": {
-		"classmap": "./Module.php"
+		"classmap": ["Module.php"]
 	}
 }
