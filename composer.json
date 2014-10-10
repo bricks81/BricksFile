@@ -11,5 +11,11 @@
     "minimum-stability": "stable",
     "require": {
         "zendframework/zendframework": "2.*@stable"                
-    }
+    },
+    "autoload": {
+		"psr-0": {
+			"BricksFile": "src"
+		},
+		"classmap": ["Module.php"]
+	},
 }
