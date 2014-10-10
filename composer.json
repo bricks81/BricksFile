@@ -1,0 +1,15 @@
+{
+    "name": "bricks81/BricksFile",
+    "description": "ZF2 Bricks CMS File Extension",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Sven Ullmann",
+            "email": "kontakt@28-n-half.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "zendframework/zendframework": "2.*",                
+    }
+}
