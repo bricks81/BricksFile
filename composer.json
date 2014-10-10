@@ -10,6 +10,6 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "zendframework/zendframework": "2.*",                
+        "zendframework/zendframework": "2.*@stable"                
     }
 }
