@@ -55,7 +55,7 @@ class Directory extends \RecursiveDirectoryIterator {
  	 * @return \Bricks\File\Directory
  	 */
  	public function copy($target,$mode=0750,$fmode=0644){
- 		if(!file_exists($target)){
+ 		if(!file_exists($target)){ 			
  			mkdir($target,$mode,true);
  		}
  		$dir = $this->getPathname();
