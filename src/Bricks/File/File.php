@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Bricks Framework & Bricks CMS
+ *
+ * @link https://github.com/bricks81/BricksFile
+ * @license http://www.gnu.org/licenses/ (GPLv3)
+ */
 namespace Bricks\File;
 
 use JMS\Serializer\Exception\RuntimeException;

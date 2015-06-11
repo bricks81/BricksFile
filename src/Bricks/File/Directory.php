@@ -1,12 +1,11 @@
 <?php
 
 /**
- * @copyright 	(C) 2002-2009, 28-n-half.de (svu)
- * @author 		Sven Ullmann <sven-ullmann@28-n-half.de>
- * @category	My
- * @package		My_Directory
+ * Bricks Framework & Bricks CMS
+ *
+ * @link https://github.com/bricks81/BricksFile
+ * @license http://www.gnu.org/licenses/ (GPLv3)
  */
-
 namespace Bricks\File;
 
 use Bricks\File\File;
