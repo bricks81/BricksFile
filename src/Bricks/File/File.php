@@ -1,6 +1,7 @@
 <?php
 /**
  * Bricks Framework & Bricks CMS
+ * http://bricks-cms.org
  *
  * @link https://github.com/bricks81/BricksFile
  * @license http://www.gnu.org/licenses/ (GPLv3)
