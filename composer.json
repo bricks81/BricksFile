@@ -1,6 +1,6 @@
 {
     "name": "bricks81/bricks-file",
-    "description": "ZF2 Bricks CMS File Extension",
+    "description": "Bricks CMS Framework File",
     "license": "GPLv3",
     "authors": [
         {
@@ -8,7 +8,7 @@
             "email": "kontakt@28-n-half.de"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "zendframework/zendframework": "2.*@stable"                
     },
