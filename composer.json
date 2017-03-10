@@ -14,9 +14,7 @@
     },
     "require": {
         "php": "^7.0",
-        "zendframework/zend-config": "*",
-        "zendframework/zend-modulemanager": "*",
-       	"bricks81/bricks-config": "*"
+        "bricks81/bricks-config": "dev-master"
     },
     "minimum-stability": "dev",
     "prefer-stable": false    
