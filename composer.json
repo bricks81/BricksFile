@@ -15,6 +15,7 @@
     "require": {
         "php": "^7.0",
         "zendframework/zend-config": "*",
+        "zendframework/zend-modulemanager": "*",
        	"bricks81/bricks-config": "*"
     },
     "minimum-stability": "dev",
