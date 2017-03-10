@@ -1,18 +1,22 @@
 {
     "name": "bricks81/bricks-file",
-    "description": "Bricks CMS Framework File",
+    "description": "Bricks CMS Framework - File Managment",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Sven Ullmann",
-            "email": "kontakt@28-n-half.de"
-        }
+    "keywords": [
+        "bricks",
+        "file"
     ],
-    "minimum-stability": "dev",
-    "require": {
-        "zendframework/zendframework": "2.*@stable"                
-    },
+    "homepage": "https://www.bricks-cms.org",
     "autoload": {
-		"classmap": ["Module.php"]
-	}
+        "psr-4": {
+            "Bricks\\File\\": "src/"
+        }
+    },
+    "require": {
+        "php": "^7.0",
+        "zendframework/zend-config": "*",
+       	"bricks81/bricks-config": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": false    
 }

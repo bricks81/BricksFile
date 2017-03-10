@@ -38,40 +38,56 @@ implements DirectoryInterface {
 	/**
 	 * @param string $dir
 	 * @param integer $mode
-	 * @return \Bricks\File\Directory
+	 * @return Directory
 	 */
 	public static function mkdir($dir,$mode=0750){
 		mkdir($dir,$mode,true);
 		return new self($dir);
 	}
 	
-	/**
-	 * @param string $dir
-	 */
-	public static function rmdir($dir){
-		if($dir instanceof Directory){
-			$dir = $dir->getPathname();
-		}
- 		$dh = opendir($dir);
- 		while(false!==($file=readdir($dh))){
- 			if('.'==$file||'..'==$file){
- 				continue;
+	
+ 	
+ 	/**
+ 	 * @param string $dir
+ 	 * @return boolean
+ 	 */
+ 	public static function is_dir($pathname){
+ 		return is_dir($pathname);
+ 	}
+ 	
+ 	/**
+ 	 * @param string $pathname
+ 	 */
+ 	public static function rmdir($pathname){
+ 		$dh = opendir($pathname);
+ 		if($dh){
+ 			while(false!==($file=readdir($dh))){
+ 				if('.'==$file||'..'==$file){
+ 					continue;
+ 				}
+ 				if(is_dir($dir.'/'.$file)){
+ 					self::rmdir($dir.'/'.$file);
+ 				} else {
+ 					File::unlink($dir.'/'.$file);
+ 				}
  			}
- 			if(is_dir($dir.'/'.$file)){
- 				self::rmdir($dir.'/'.$file);
- 			} else {
- 				File::unlink($dir.'/'.$file);
- 			}
+ 			closedir($dh);
  		}
- 		closedir($dh);
- 		rmdir($dir);
+ 		rmdir($pathname);
+ 	}
+ 	
+ 	/**
+ 	 * @param string $glob
+ 	 */
+ 	public static function glob($glob){
+ 		return glob($glob);
  	}
  	
  	/**
  	 * @param string $target
  	 * @param integer $mode
  	 * @param integer $fmode
- 	 * @return \Bricks\File\Directory
+ 	 * @return Directory
  	 */
  	public function copy($target,$mode=0750,$fmode=0644){
  		if(!file_exists($target)){ 			

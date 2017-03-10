@@ -27,8 +27,6 @@
 
 namespace Bricks\File;
 
-use JMS\Serializer\Exception\RuntimeException;
-
 use Bricks\File\Directory;
 
 class File extends \SplFileObject 
@@ -36,54 +34,50 @@ implements FileInterface {
 
 	
 	/**
-	 * @param string $file
+	 * @param string $pathname
 	 * @param integer $mode
 	 * @param integer $dmode
-	 * @return \Bricks\File\File
+	 * @return File
 	 */
-	public static function touch($file,$mode=0644,$dmode=0750){
-		if(!file_exists(dirname($file))){
-			Directory::mkdir(dirname($file),$dmode);			
+	public static function touch($pathname,$mode=0644,$dmode=0750){
+		if(!File::file_exists(dirname($pathname))){
+			Directory::mkdir(dirname($pathname),$dmode);			
 		}
 		touch($file);
-		chmod($file,$mode);
-		return new self($file);		
+		$file = new self($pathname);
+		$file->chmod($mode);
+		return $file;		
 	}
 	
 	/**
-	 * @param string $source
-	 * @param string $target
-	 * @return \Bricks\File\File
+	 * @param string $pathname
+	 * @return boolean
 	 */
-	public static function staticCopy($source,$target){
-		$file = new self($source);
-		$file->copy($target);
-		return new self($target);
+	public static function file_exists($pathname){
+		return file_exists($pathname);
 	}
 	
 	/**
-	 * @param string $target
-	 * @param integer $mode
-	 * @param integer $dmode
-	 * @return \Bricks\File\File
+	 * @param string $pathname
+	 * @return boolena
 	 */
-	public function copy($target,$mode=0644,$dmode=0750){
-		$source = $this->getPathname();
-		if(!file_exists(dirname($target))){
-			Directory::mkdir(dirname($target),$dmode);
-		}
-		copy($source,$target);
-		return new self($target);
+	public static function is_file($pathname){
+		return is_file($pathname);
 	}
 	
 	/**
-	 * @param string|File $file
+	 * @param string $pathname
+	 * @return boolean
 	 */
-	public static function unlink($file){
-		if($file instanceof File){
-			$file = $file->getPathname();
-		}
-		unlink($file);			
+	public static function is_link($pathname){
+		return is_link($pathname);
+	}
+	
+	/**
+	 * @param string $pathname
+	 */
+	public static function unlink($pathname){
+		unlink($pathname);
 	}
 	
 	/**
@@ -94,7 +88,7 @@ implements FileInterface {
 	 */
 	public static function cleanFilename($filename,$replacement='-'){
 		$filename = str_replace("\0",'',$filename);
-		$filename = preg_replace('#[^a-zA-Z0-9._-]+#b',$replacement,$filename);
+		$filename = preg_replace('#[^a-zA-Z0-9._-]+#',$replacement,$filename);
 		if(strlen($filename)>255){
 			$ext = substr($filename,strrpos($filename,'.'));
 			$name = substr($filename,0,255-strlen($ext));
@@ -120,6 +114,51 @@ implements FileInterface {
 			$target = rtrim($dir,'/').'/'.self::cleanFilename($i++.'-'.$filename);
 		} while(file_exists($target));
 		return $target;
+	}
+	
+	/**
+	 * @param string $file
+	 * @param string $target
+	 */
+	public function symlink($target){
+		symlink($this->getPathname(),$target);
+	}
+	
+	/**
+	 * @param string $target
+	 * @param integer $mode
+	 * @param integer $dmode
+	 * @return File
+	 */
+	public function copy($target,$mode=0644,$dmode=0750){
+		if(!self::file_exists(dirname($target))){
+			Directory::mkdir(dirname($target),$dmode);
+		}
+		copy($this->getPathname(),$target);
+		return new self($target);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \Bricks\File\FileInterface::getTypeInstance()
+	 */
+	public function getTypeInstance(){		
+		$finfo = finfo_open(FILEINFO_MIME_TYPE);
+		$mimetype = finfo_file($finfo,$this->getPathname());
+		finfo_close($finfo);
+    	$parts = explode('/',$mimetype);
+    	$path = str_replace('/',DIRECTORY_SEPARATOR,__DIR__.'/Type/'.ucfirst($parts[0]).'/'.ucfirst($parts[1])).'.php';
+    	if(file_exists($path)){
+    		$class = "Bricks\File\Type\{ucfirst($parts[0])}\{ucfirst($parts[1]}";
+    		return new $class($this->getPathname);
+    	}
+    	$path = dirname($path).'.php';
+    	if(file_exists($path)){
+    		$class = "Bricks\File\Type\{ucfirst($parts[0])}";
+    		return new $class($this->getPathname);
+    	}
+    	
+    	return $this;    	
 	}
 	
 }

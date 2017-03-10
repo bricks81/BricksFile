@@ -27,31 +27,22 @@
 
 namespace Bricks\File;
 
-use Bricks\File\Directory;
-
-interface FileInterface extends \SplFileObject {
+interface FileInterface {
 
 	
 	/**
 	 * @param string $file
 	 * @param integer $mode
 	 * @param integer $dmode
-	 * @return \Bricks\File\File
+	 * @return File
 	 */
 	public static function touch($file,$mode=0644,$dmode=0750);
-	
-	/**
-	 * @param string $source
-	 * @param string $target
-	 * @return \Bricks\File\File
-	 */
-	public static function staticCopy($source,$target);
 	
 	/**
 	 * @param string $target
 	 * @param integer $mode
 	 * @param integer $dmode
-	 * @return \Bricks\File\File
+	 * @return File
 	 */
 	public function copy($target,$mode=0644,$dmode=0750);
 	
@@ -74,5 +65,11 @@ interface FileInterface extends \SplFileObject {
 	 * @return string
 	 */
 	public static function incrementFilename($path);
+	
+	/**
+	 * Returns a concrete file object based on mime type
+	 * @return File
+	 */
+	public function getTypeInstance();
 	
 }

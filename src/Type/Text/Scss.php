@@ -15,7 +15,7 @@
  *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -25,23 +25,16 @@
  * THE SOFTWARE.
  */
 
-namespace Bricks\File;
+namespace Bricks\File\Type;
 
-/**
- * Class extending SPL class and adding diffrent directory operations
- */
-interface DirectoryInterface  extends \RecursiveDirectoryIterator {
+use Bricks\File\Type\Text;
 
-	/**
-	 * @param string $dir
-	 * @param integer $mode
-	 * @return \Bricks\File\Directory
-	 */
-	public static function mkdir($dir,$mode=0750);
+class Scss extends Text {
 	
-	/**
-	 * @param string $dir
-	 */
-	public static function rmdir($dir);
+	public function parse(){		
+	}
+	
+	public function minify(){		
+	}
 	
 }
